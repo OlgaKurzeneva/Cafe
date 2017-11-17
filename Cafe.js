@@ -68,6 +68,7 @@ function load_cb(data_id, success) {
 	
 	//var character = m_scs.get_first_character();
 	m_app.enable_camera_controls();
+	//var waiter = m_scs.get_object_by_name("Waiter:Male_casualsuit06");
 	//m_fps.enable_fps_controls();
 	
 	var canvas_elem = m_cont.get_canvas();
@@ -83,18 +84,24 @@ function main_canvas_click(e) {
     var y = m_mouse.get_coords_y(e);
 
     var obj = m_scs.pick_object(x, y);
-
-    if (obj) {
-        if (_previous_selected_obj) {
-            m_anim.stop(_previous_selected_obj);
-            m_anim.set_frame(_previous_selected_obj, 0);
-        }
-        _previous_selected_obj = obj;
-
-        m_anim.apply_def(obj);
-        m_anim.play(obj);
-    }
+	
+	if (obj) {
+		if (obj == m_scs.get_object_by_name("Waiter:Male_casualsuit06")) {
+			console.log("Hello!");
+		}
+		if (_previous_selected_obj) {
+			m_anim.stop(_previous_selected_obj);
+			m_anim.set_frame(_previous_selected_obj, 250);
+		}
+		_previous_selected_obj = obj;
+		
+		m_anim.apply_def(obj);
+		if (m_anim.is_animated(obj)) {
+			m_anim.play(obj);
+		}
+	}
 }
+
 });
 
 b4w.require("Cafe_main").init();
